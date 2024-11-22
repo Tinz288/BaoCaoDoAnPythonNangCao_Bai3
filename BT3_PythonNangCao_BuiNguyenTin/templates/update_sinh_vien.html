@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cập nhật sinh viên</title>
+  <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet" />
+</head>
+<body class="bg-gradient-to-r from-green-400 via-teal-500 to-blue-600 text-gray-100 flex justify-center items-center min-h-screen">
+  <div class="container mx-auto p-6 bg-white rounded-lg shadow-lg w-full sm:w-3/4 md:w-2/3 lg:w-1/2">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Cập nhật sinh viên</h1>
+
+    <form action="{{ url_for('update_sinh_vien_action', id=sv.ID) }}" method="POST">
+      <div class="mb-6">
+        <label for="ten" class="block text-lg font-medium mb-2 text-gray-700">Tên sinh viên</label>
+        <input type="text" name="ten" id="ten" value="{{ sv.Ten }}" class="w-full p-3 bg-gray-100 rounded text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+      </div>
+
+      <div class="mb-6">
+        <label for="tuoi" class="block text-lg font-medium mb-2 text-gray-700">Tuổi</label>
+        <input type="number" name="tuoi" id="tuoi" value="{{ sv.Tuoi }}" class="w-full p-3 bg-gray-100 rounded text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500" required />
+      </div>
+
+      <div class="mb-6">
+        <label for="gioi_tinh" class="block text-lg font-medium mb-2 text-gray-700">Giới tính</label>
+        <select name="gioi_tinh" id="gioi_tinh" class="w-full p-3 bg-gray-100 rounded text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500">
+          <option value="Nam" {% if sv.GioiTinh %}selected{% endif %}>Nam</option>
+          <option value="Nữ" {% if not sv.GioiTinh %}selected{% endif %}>Nữ</option>
+        </select>
+      </div>
+
+      <div class="mb-6">
+        <label for="chuyen_nganh" class="block text-lg font-medium mb-2 text-gray-700">Chuyên ngành</label>
+        <select name="chuyen_nganh" id="chuyen_nganh" class="w-full p-3 bg-gray-100 rounded text-gray-800 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500">
+          {% for chuyen_nganh in chuyen_nganhs %}
+            <option value="{{ chuyen_nganh.ID }}" {% if chuyen_nganh.ID == sv.chuyen_nganh.ID %}selected{% endif %}>
+              {{ chuyen_nganh.TenChuyenNganh }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-6 text-center">
+        <button type="submit" class="bg-teal-500 hover:bg-teal-600 text-white py-2 px-8 rounded shadow-lg transition duration-300 ease-in-out transform hover:scale-105">Cập nhật</button>
+        <a href="{{ url_for('danh_sach_sinh_vien') }}" class="ml-4 text-gray-500 hover:text-gray-700">Quay lại</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý sinh viên</title>
+    <link
+      href="{{ url_for('static', filename='css/tailwind.css') }}"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    class="bg-gradient-to-r from-red-500 via-red-600 to-red-700 text-gray-200 min-h-screen flex items-center justify-center"
+  >
+    <div
+      class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md sm:max-w-lg lg:max-w-xl text-gray-800"
+    >
+      <!-- Logo Section -->
+      <div class="flex justify-center mb-6">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Logo_VLU_2022.png"
+          alt="Logo VLU"
+          class="w-80 h-40" <!-- Tăng chiều ngang logo -->
+      </div>
+
+      <!-- Title -->
+      <h1 class="text-3xl font-bold text-center mb-8">Quản lý sinh viên</h1>
+
+      <!-- Conditional Forms -->
+      {% if mode == 'register' %}
+      <!-- Registration Form -->
+      <h2 class="text-2xl font-semibold text-center mb-6">Đăng Ký</h2>
+      <form action="{{ url_for('register') }}" method="POST" class="space-y-4">
+        <input
+          type="text"
+          name="username"
+          placeholder="Tên người dùng"
+          class="w-full p-3 bg-blue-50 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Mật khẩu"
+          class="w-full p-3 bg-blue-50 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Xác nhận mật khẩu"
+          class="w-full p-3 bg-blue-50 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full p-3 bg-purple-600 text-white rounded hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-500"
+        >
+          Đăng ký
+        </button>
+      </form>
+      <p class="text-center text-sm mt-4">
+        Đã có tài khoản?
+        <a
+          href="{{ url_for('index', mode='login') }}"
+          class="text-purple-600 hover:underline"
+          >Đăng nhập</a
+        >
+      </p>
+
+      {% else %}
+      <!-- Login Form -->
+      <h2 class="text-2xl font-semibold text-center mb-6">Đăng Nhập</h2>
+      <form action="{{ url_for('login') }}" method="POST" class="space-y-4">
+        <input
+          type="text"
+          name="username"
+          placeholder="Tên người dùng"
+          class="w-full p-3 bg-blue-50 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Mật khẩu"
+          class="w-full p-3 bg-blue-50 border border-blue-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full p-3 bg-green-600 text-white rounded hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500"
+        >
+          Đăng nhập
+        </button>
+      </form>
+      <p class="text-center text-sm mt-4">
+        Bạn chưa có tài khoản?
+        <a
+          href="{{ url_for('index', mode='register') }}"
+          class="text-green-600 hover:underline"
+          >Đăng ký</a
+        >
+      </p>
+      {% endif %}
+    </div>
+  </body>
+</html>
